@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Pizza</title>
+	<div th:insert="~{fragments/fragments :: imports}"></div>
+</head>
+<body>
+	<div class="container">
+		<div class="myCard d-flex gap-5">
+			<div class="imgContainer">
+				<img class="myImg" th:src="@{/images/margherita.jpeg}" alt="pizzaImage">
+			</div>
+			<div class="cardBody d-flex flex-column justify-content-between w-100">
+				<div class="mainBody">
+					<h3 class="name text-decoration-underline">[[${pizza.name}]]</h3>
+					<div class="price">
+						<span class="fw-bold">Price: </span>
+						<span>[[${pizza.getFormattedPrice()}]]</span>
+					</div>
+					<div class="description">
+						<span class="fw-bold">Description: </span>
+						<span>[[${pizza.description}]]</span>
+					</div>
+				</div>
+				<div class="footer d-flex justify-content-end">
+					<a th:href="@{/}" class="btn btn-light text-danger">Back</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

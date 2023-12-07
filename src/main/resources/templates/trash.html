@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Trash</title>
+	<div th:insert="~{fragments/fragments :: imports}"></div>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a th:href="@{/}" class="btn btn-light text-danger">Back</a>
+        </header>
+        <div class="text-center my-5" th:if="${pizzas.size() == 0}">No Pizzas in the Trash Can</div>
+		<div th:unless="${pizzas.size() == 0}">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Tasks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="pizza : ${pizzas}">
+                        <td>[[${pizza.id}]]</th>
+                        <td>[[${pizza.name}]]</td>
+                        <td class="d-flex justify-content-center align-items-center gap-2">
+                            <form method="POST" th:object="${pizza}" th:action="@{/pizzas/delete/{id}(id=${pizza.id})}">
+                                <button type="submit" class="btn btn-danger">Erase</button>
+                            </form>
+                            <form method="POST" th:object="${pizza}" th:action="@{/pizzas/restore/{id}(id=${pizza.id})}">
+                                <button type="submit" class="btn btn-primary">Restore</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
