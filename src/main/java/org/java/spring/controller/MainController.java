@@ -64,7 +64,7 @@ public class MainController {
 		return savePizza(model, bindingResult, pizza);
 	}
 
-	@GetMapping("pizzas/edit/{id}")
+	@GetMapping("/pizzas/edit/{id}")
 	public String editPizza(Model model, @PathVariable int id) {
 
 		Pizza pizza = pizzaService.findById(id);
@@ -73,7 +73,7 @@ public class MainController {
 		return "formPizza";
 	}
 
-	@PostMapping("pizzas/edit/{id}")
+	@PostMapping("/pizzas/edit/{id}")
 	public String updatePizza(Model model,
 			@Valid @ModelAttribute Pizza pizza,
 			BindingResult bindingResult) {
@@ -106,7 +106,7 @@ public class MainController {
 		return "redirect:/";
 	}
 
-	@GetMapping("pizzas/trash")
+	@GetMapping("/pizzas/trash")
 	public String trash(Model model) {
 
 		List<Pizza> pizzas = pizzaService.findAllWithTrashed();

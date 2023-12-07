@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Offers</title>
+        <div th:insert="~{fragments/fragments :: imports}"></div>
+    </head>
+<body>
+    <div class="container">
+        <h1 class="text-center py-3">Available Offers</h1>
+        <div class="pizza">
+            <h4>Pizza: </h4>
+            <span>[[${pizza.name}]]</span>
+        </div>
+        <form th:action="@{/pizzas/offer/create}" method="POST">
+            <div class="offers">
+                <h4>Available offers: </h4>
+                <select name="title">
+                    <option th:each="offer : ${offers}" th:value="${offer.title}" th:text="${offer.title}"></option>
+                </select>
+            </div>
+            <input type="hidden" name="pizza_id" th:value="${pizza.id}">
+            <button type="submit" class="btn btn-primary">Create Offer</button>
+        </form>
+    </div>
+</body>
+</html>

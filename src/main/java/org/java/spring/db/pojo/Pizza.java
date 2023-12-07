@@ -2,11 +2,11 @@ package org.java.spring.db.pojo;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Min;
 import jakarta.persistence.GeneratedValue;
-
+import java.util.List;
 import org.hibernate.validator.constraints.Length;
-
 import jakarta.persistence.Column;
 
 @Entity
@@ -32,6 +32,9 @@ public class Pizza {
 
 	private boolean isDeleted;
 
+	@OneToMany
+	private List<Pizza> pizzas;
+
 	// Constructors
 	public Pizza() {
 		setDeleted(false);
@@ -45,7 +48,7 @@ public class Pizza {
 		setDeleted(false);
 	}
 
-	// Getters and Setters
+	// Getters & Setters
 	public int getId() {
 		return id;
 	}

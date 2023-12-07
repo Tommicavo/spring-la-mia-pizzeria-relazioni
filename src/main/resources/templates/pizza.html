@@ -24,8 +24,11 @@
 						<span>[[${pizza.description}]]</span>
 					</div>
 				</div>
-				<div class="footer d-flex justify-content-end">
-					<a th:href="@{/}" class="btn btn-light text-danger">Back</a>
+				<div class="footer d-flex justify-content-center gap-3">
+					<form th:action="@{/pizzas/offer/{id}(id=${pizza.id})}" th:object="${pizza}">
+						<button type="submit" class="btn btn-success">Start an offer for this Pizza!</button>
+					</form>
+					<a th:href="@{/}" class="btn btn-danger">Back</a>
 				</div>
 			</div>
 		</div>
