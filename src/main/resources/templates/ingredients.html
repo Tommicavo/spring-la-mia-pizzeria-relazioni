@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ingredients</title>
+        <div th:insert="~{fragments/fragments :: imports}"></div>
+    </head>
+<body>
+    <div class="container">
+        <div class="text-center my-5" th:if="${ingredients.size() == 0}">No Ingredients registered here yet</div>
+		<div th:unless="${ingredients.size() == 0}">
+            <h1 class="text-danger text-center py-3">Ingredients</h1>
+            <form th:action="@{/ingredients/store}" method="POST">
+                <table class="table table-danger table-striped myTable">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Tasks</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="ingredient : ${ingredients}" th:object="${ingredient}">
+                        <td>[[*{id}]]</td>
+                        <td>[[*{name}]]</td>
+                        <td>
+                            <form method="POST" th:action="@{/ingredients/delete/{id}(id=*{id})}">
+                                <button type="submit" class="btn btn-danger">-</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">
+                                <div class="d-flex justify-content-center align-items-center gap-2">
+                                    <input class="form-control addIngName" type="text" placeholder="Write a new Ingredient here..." th:field="${ingredient.name}">
+                                    <button type="submit" class="btn btn-success">Add</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                    </tbody>
+                </table>
+            </form>     
+		</div>
+    </div>
+</body>
+</html>

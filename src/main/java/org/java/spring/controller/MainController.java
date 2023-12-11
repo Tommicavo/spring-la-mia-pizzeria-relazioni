@@ -2,6 +2,7 @@ package org.java.spring.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.java.spring.db.serv.IngredientService;
 import org.java.spring.db.serv.PizzaService;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.validation.Valid;
 
 import java.util.List;
+
+import org.java.spring.db.pojo.Ingredient;
 import org.java.spring.db.pojo.Pizza;
 
 @Controller
@@ -22,6 +25,9 @@ public class MainController {
 
 	@Autowired
 	private PizzaService pizzaService;
+
+	@Autowired
+	private IngredientService ingredientService;
 
 	@GetMapping("/")
 	public String index(Model model, @RequestParam(required = false) String searchedWord) {
@@ -50,8 +56,12 @@ public class MainController {
 	public String createPizza(Model model) {
 
 		Pizza pizza = new Pizza();
-		model.addAttribute(pizza);
+		List<Ingredient> ingredients = ingredientService.findAll();
+
+		model.addAttribute("pizza", pizza);
+		model.addAttribute("ingredients", ingredients);
 		model.addAttribute("create", true);
+
 		return "formPizza";
 	}
 
@@ -68,8 +78,12 @@ public class MainController {
 	public String editPizza(Model model, @PathVariable int id) {
 
 		Pizza pizza = pizzaService.findById(id);
+		List<Ingredient> ingredients = ingredientService.findAll();
+
 		model.addAttribute("pizza", pizza);
+		model.addAttribute("ingredients", ingredients);
 		model.addAttribute("create", false);
+
 		return "formPizza";
 	}
 
@@ -101,6 +115,9 @@ public class MainController {
 	public String deletePizza(@PathVariable int id) {
 
 		Pizza pizza = pizzaService.findById(id);
+		pizza.clearIngredients();
+		pizzaService.save(pizza);
+
 		pizzaService.delete(pizza);
 
 		return "redirect:/";

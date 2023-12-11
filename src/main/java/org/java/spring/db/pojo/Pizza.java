@@ -1,12 +1,17 @@
 package org.java.spring.db.pojo;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Min;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import java.util.List;
+import java.util.Arrays;
 import org.hibernate.validator.constraints.Length;
+
 import jakarta.persistence.Column;
 
 @Entity
@@ -14,7 +19,7 @@ public class Pizza {
 
 	// Properties
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@Column(unique = true, nullable = false, length = 64)
@@ -35,17 +40,21 @@ public class Pizza {
 	@OneToMany
 	private List<Pizza> pizzas;
 
+	@ManyToMany(fetch = FetchType.EAGER)
+	private List<Ingredient> ingredients;
+
 	// Constructors
 	public Pizza() {
 		setDeleted(false);
 	}
 
-	public Pizza(String name, String description, String imageUrl, int price) {
+	public Pizza(String name, String description, String imageUrl, int price, Ingredient... ingredients) {
 		setName(name);
 		setDescription(description);
 		setImageUrl(imageUrl);
 		setPrice(price);
 		setDeleted(false);
+		setIngredients(ingredients);
 	}
 
 	// Getters & Setters
@@ -95,6 +104,22 @@ public class Pizza {
 
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+
+	public List<Ingredient> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(List<Ingredient> ingredients) {
+		this.ingredients = ingredients;
+	}
+
+	public void setIngredients(Ingredient... ingredients) {
+		setIngredients(Arrays.asList(ingredients));
+	}
+
+	public void clearIngredients() {
+		getIngredients().clear();
 	}
 
 	// Methods

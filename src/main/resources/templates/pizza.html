@@ -23,6 +23,14 @@
 						<span class="fw-bold">Description: </span>
 						<span>[[${pizza.description}]]</span>
 					</div>
+					<div th:if="${pizza.ingredients.size() > 0}" class="ingredients">
+						<div class="fw-bold">Ingredients:</div>
+						<ul>
+							<li th:each="ingredient : ${pizza.ingredients}" th:object="${ingredient}">
+								[[*{name}]]
+							</li>
+						</ul>
+					</div>
 				</div>
 				<div class="footer d-flex justify-content-center gap-3">
 					<form th:action="@{/pizzas/offer/{id}(id=${pizza.id})}" th:object="${pizza}">
