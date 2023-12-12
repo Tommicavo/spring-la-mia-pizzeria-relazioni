@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -27,6 +28,7 @@ public class Offer {
     private LocalDate stopDate;
 
     @ManyToOne
+    @JoinColumn(name = "pizza_id")
     private Pizza pizza;
 
     // Constructors
@@ -83,6 +85,6 @@ public class Offer {
 
     @Override
     public String toString() {
-        return "Offer: " + getTitle() + '\n';
+        return getTitle() + " (" + getStartDate() + " - " + getStopDate() + ')';
     }
 }

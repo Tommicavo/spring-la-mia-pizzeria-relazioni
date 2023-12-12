@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Arrays;
 import org.hibernate.validator.constraints.Length;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 
 @Entity
@@ -39,8 +40,8 @@ public class Pizza {
 
 	private boolean isDeleted;
 
-	@OneToMany
-	private List<Pizza> pizzas;
+	@OneToMany(mappedBy = "pizza", fetch = FetchType.EAGER)
+	private List<Offer> offers;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "pizza_ingredients", joinColumns = @JoinColumn(name = "pizza_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
@@ -107,6 +108,14 @@ public class Pizza {
 
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+
+	public List<Offer> getOffers() {
+		return offers;
+	}
+
+	public void setOffers(List<Offer> offers) {
+		this.offers = offers;
 	}
 
 	public List<Ingredient> getIngredients() {

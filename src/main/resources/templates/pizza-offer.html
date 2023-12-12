@@ -8,21 +8,27 @@
     </head>
 <body>
     <div class="container">
-        <h1 class="text-center py-3">Available Offers</h1>
         <div class="pizza">
-            <h4>Pizza: </h4>
+            <span class="fw-bold">Your Pizza: </span>
             <span>[[${pizza.name}]]</span>
         </div>
-        <form th:action="@{/pizzas/offer/create}" method="POST">
-            <div class="offers">
-                <h4>Available offers: </h4>
-                <select name="title">
-                    <option th:each="offer : ${offers}" th:value="${offer.title}" th:text="${offer.title}"></option>
-                </select>
-            </div>
-            <input type="hidden" name="pizza_id" th:value="${pizza.id}">
-            <button type="submit" class="btn btn-primary">Create Offer</button>
-        </form>
+        <div class="offer">
+            <form th:action="@{'/pizzas/' + ${pizza.id} + '/offers/create'}" th:object="${offer}" method="POST">
+                <div class="title mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" placeholder="Offer title..." th:field="*{title}">
+                </div>
+                <div class="startDate mb-3">
+                    <label for="startDate" class="form-label">Start Date</label>
+                    <input type="date" class="form-control" id="startDate" th:field="*{startDate}">
+                </div>
+                <div class="stopDate mb-3">
+                    <label for="stopDate" class="form-label">End Date</label>
+                    <input type="date" class="form-control" id="stopDate" th:field="*{stopDate}">
+                </div>
+                <button type="submit" class="btn btn-success">Create Offer</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
