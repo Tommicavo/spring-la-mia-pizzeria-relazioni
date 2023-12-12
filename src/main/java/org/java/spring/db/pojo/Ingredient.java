@@ -3,7 +3,9 @@ package org.java.spring.db.pojo;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,7 +20,9 @@ public class Ingredient {
 
     private String name;
 
-    @ManyToMany(mappedBy = "ingredients")
+    private boolean checked;
+
+    @ManyToMany(mappedBy = "ingredients", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Pizza> pizzas;
 
     public Ingredient() {
@@ -44,12 +48,27 @@ public class Ingredient {
         this.name = name;
     }
 
+    public boolean getChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
     public List<Pizza> getPizzas() {
         return pizzas;
     }
 
     public void setPizzas(List<Pizza> pizzas) {
         this.pizzas = pizzas;
+    }
+
+    public void clearPizzas() {
+        for (Pizza pizza : pizzas) {
+            pizza.getIngredients().remove(this);
+        }
+        pizzas.clear();
     }
 
     @Override

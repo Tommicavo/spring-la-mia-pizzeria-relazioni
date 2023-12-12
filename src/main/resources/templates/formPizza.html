@@ -46,7 +46,7 @@
                         th:id="'ingredient_' + *{id}"
                         th:value="*{id}"
                         th:field="${pizza.ingredients}"
-                        th:checked="${pizza.ingredients.contains(ingredient)}">
+                        th:checked="${ingredient.checked}">
                     <label th:for="'ingredient_' + *{id}" class="form-check-label">[[*{name}]]</label>
                 </div>
             </div>

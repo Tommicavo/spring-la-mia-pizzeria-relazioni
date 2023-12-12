@@ -3,15 +3,11 @@ package org.java.spring;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.CommandLineRunner;
-
-import java.time.LocalDate;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.java.spring.db.serv.IngredientService;
 import org.java.spring.db.serv.OfferService;
 import org.java.spring.db.serv.PizzaService;
 import org.java.spring.db.pojo.Ingredient;
-import org.java.spring.db.pojo.Offer;
 import org.java.spring.db.pojo.Pizza;
 
 @SpringBootApplication
@@ -51,8 +47,7 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 		pizzaService.save(new Pizza("Calzone", "Il farcito", "imageUrl_4", 900, ing4, ing5));
 		pizzaService.save(new Pizza("SuperPizza", "La speciale", "imageUrl_5", 1250, ing1, ing3, ing5));
 
-		List<Pizza> pizzas = pizzaService.findAll();
-
+		// List<Pizza> pizzas = pizzaService.findAll();
 		// offerService.save(new Offer("Offerta 1", LocalDate.now().minusDays(10),
 		// LocalDate.now(), pizzas.get(0)));
 		// offerService.save(

@@ -1,10 +1,15 @@
 package org.java.spring.db.serv;
 
 import org.springframework.stereotype.Service;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.java.spring.db.repo.PizzaRepository;
 
 import java.util.List;
+
+import org.java.spring.db.pojo.Ingredient;
 import org.java.spring.db.pojo.Pizza;
 
 @Service
@@ -39,5 +44,10 @@ public class PizzaService {
 
 	public List<Pizza> findAllWithTrashed() {
 		return pizzaRepository.findPizzaByIsDeletedTrue();
+	}
+
+	@Transactional
+	public List<Pizza> getPizzasByIngredient(Ingredient ingredient) {
+		return pizzaRepository.findPizzasByIngredientsContaining(ingredient);
 	}
 }

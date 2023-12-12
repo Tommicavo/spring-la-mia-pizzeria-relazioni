@@ -58,6 +58,10 @@ public class MainController {
 		Pizza pizza = new Pizza();
 		List<Ingredient> ingredients = ingredientService.findAll();
 
+		ingredients.forEach(ingredient -> {
+			ingredient.setChecked(pizza.getIngredients() != null && pizza.getIngredients().contains(ingredient));
+		});
+
 		model.addAttribute("pizza", pizza);
 		model.addAttribute("ingredients", ingredients);
 		model.addAttribute("create", true);

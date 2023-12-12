@@ -3,6 +3,8 @@ package org.java.spring.db.pojo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Min;
@@ -41,6 +43,7 @@ public class Pizza {
 	private List<Pizza> pizzas;
 
 	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "pizza_ingredients", joinColumns = @JoinColumn(name = "pizza_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
 	private List<Ingredient> ingredients;
 
 	// Constructors

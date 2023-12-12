@@ -10,7 +10,10 @@
     <div class="container">
         <div class="text-center my-5" th:if="${ingredients.size() == 0}">No Ingredients registered here yet</div>
 		<div th:unless="${ingredients.size() == 0}">
-            <h1 class="text-danger text-center py-3">Ingredients</h1>
+            <header class="d-flex justify-content-evenly align-items-center">
+                <h1 class="text-danger text-center py-3">Ingredients</h1>
+                <a th:href="@{/}" class="btn btn-primary">Back</a>
+            </header>
             <form th:action="@{/ingredients/store}" method="POST">
                 <table class="table table-danger table-striped myTable">
                     <thead>
